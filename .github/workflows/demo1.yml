@@ -4,10 +4,15 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: my-step
-        run: echo "Hello World!"
-      
       - name: Checkout
         uses: actions/checkout@v4.1.1
+      
+      - name: Run Trivy vulnerability scanner in repo mode
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          ignore-unfixed: true
+          format: 'table'
+          severity: 'UNKNOWN,LOW,MEDIUM,HIGH,CRITICAL'
 
       
